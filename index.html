@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مائدة رمضان العمانية</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Cairo', sans-serif; background-color: #020617; color: #f8fafc; overflow-x: hidden; }
+        .bg-pattern { background-image: url('https://www.transparenttextures.com/patterns/arabesque.png'); opacity: 0.1; }
+        .glass-card { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); }
+    </style>
+</head>
+<body class="antialiased selection:bg-amber-500 selection:text-slate-900">
+
+    <div id="homeView" class="block transition-opacity duration-500">
+        <header class="relative bg-emerald-950 py-20 px-4 text-center border-b-4 border-amber-500 overflow-hidden shadow-2xl">
+            <div class="absolute inset-0 bg-pattern"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-emerald-950"></div>
+            <div class="relative z-10">
+                <span class="text-amber-400 font-bold tracking-widest text-sm uppercase mb-4 block">🌙 شهر رمضان المبارك 🌙</span>
+                <h1 class="text-5xl md:text-7xl font-black text-white mb-6 drop-shadow-lg">مائدة رمضان العمانية</h1>
+                <p class="text-xl text-emerald-100 max-w-2xl mx-auto font-light">دليلك اليومي الشامل لأشهى الأطباق العمانية والعالمية للإفطار والسحور</p>
+            </div>
+        </header>
+
+        <main class="container mx-auto px-4 py-16">
+            <div id="gridContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                </div>
+        </main>
+    </div>
+
+    <div id="detailView" class="hidden opacity-0 transition-opacity duration-500 min-h-screen pb-20">
+        <nav class="bg-emerald-950 p-4 sticky top-0 z-50 shadow-2xl border-b border-amber-600">
+            <div class="container mx-auto flex justify-between items-center">
+                <button onclick="goBack()" class="flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-slate-900 px-4 py-2 rounded-full font-bold transition-all transform hover:scale-105 shadow-lg">
+                    <span>&rarr;</span> العودة للجدول
+                </button>
+                <span id="detailDayNumber" class="font-black text-2xl text-white tracking-wide"></span>
+            </div>
+        </nav>
+
+        <div class="relative h-72 bg-gradient-to-br from-emerald-900 to-slate-900 flex items-center justify-center overflow-hidden border-b border-slate-800">
+            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/black-scales.png')] opacity-30"></div>
+            <div class="relative z-10 text-center px-4">
+                <span class="text-amber-400 font-bold text-sm tracking-widest block mb-3">الطبق الرئيسي للإفطار</span>
+                <h1 id="detailMainTitle" class="text-4xl md:text-6xl font-black text-white drop-shadow-[0_5px_5px_rgba(0,0,0,0.5)]"></h1>
+            </div>
+        </div>
+
+        <div class="container mx-auto px-4 -mt-12 relative z-20">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <div class="lg:col-span-2 space-y-8">
+                    <div class="glass-card rounded-3xl p-8 border border-slate-700 shadow-2xl">
+                        <h2 class="text-2xl font-black text-amber-500 mb-6 flex items-center gap-3 border-b border-slate-700 pb-4">
+                            <span class="text-3xl">🛒</span> المقادير والمكونات
+                        </h2>
+                        <ul id="detailIngredients" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-300"></ul>
+                    </div>
+
+                    <div class="glass-card rounded-3xl p-8 border border-slate-700 shadow-2xl">
+                        <h2 class="text-2xl font-black text-amber-500 mb-6 flex items-center gap-3 border-b border-slate-700 pb-4">
+                            <span class="text-3xl">👨‍🍳</span> طريقة التحضير
+                        </h2>
+                        <div id="detailMethod" class="space-y-6 text-slate-300 leading-relaxed"></div>
+                    </div>
+                </div>
+
+                <div class="space-y-8">
+                    <div class="bg-gradient-to-br from-emerald-900/50 to-emerald-950/50 rounded-3xl p-8 border border-emerald-800 shadow-2xl backdrop-blur-md">
+                        <h3 class="text-xl font-black text-white mb-6 border-b border-emerald-800 pb-4 flex items-center gap-2">
+                            <span>🍽️</span> على مائدة الإفطار
+                        </h3>
+                        <div class="space-y-5">
+                            <div>
+                                <span class="text-sm font-bold text-emerald-400 block mb-1">الأطباق الجانبية والحلويات:</span>
+                                <p id="detailSide" class="text-lg font-medium text-slate-100"></p>
+                            </div>
+                            <div>
+                                <span class="text-sm font-bold text-emerald-400 block mb-1">الشوربة / المشروب:</span>
+                                <p id="detailSoup" class="text-lg font-medium text-slate-100"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-amber-900/30 to-slate-900 rounded-3xl p-8 border border-amber-900/50 shadow-2xl backdrop-blur-md">
+                        <h3 class="text-xl font-black text-amber-300 mb-4 flex items-center gap-2 border-b border-amber-900/50 pb-4">
+                            <span>🌙</span> وجبة السحور
+                        </h3>
+                        <h4 id="detailSuhoorTitle" class="text-2xl font-bold text-white mb-4"></h4>
+                        <div class="space-y-4">
+                            <div class="bg-black/30 p-4 rounded-2xl border border-white/5">
+                                <span class="text-xs font-bold text-amber-500 block mb-2">المكونات الأساسية:</span>
+                                <p id="detailSuhoorIngredients" class="text-sm text-slate-300"></p>
+                            </div>
+                            <div class="bg-black/30 p-4 rounded-2xl border border-white/5">
+                                <span class="text-xs font-bold text-amber-500 block mb-2">طريقة الإعداد:</span>
+                                <p id="detailSuhoorMethod" class="text-sm text-slate-300 leading-relaxed"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // قاعدة البيانات الكاملة لـ 30 يوماً
+        const menuData = [
+            {
+                day: 1,
+                main: { title: "الهريس العماني باللحم", ingredients: ["2 كيلو لحم غنم أو عجل (بعظمه)", "1.5 كيلو حب هريس (منقوع ليلة كاملة)", "ملعقتان كبار ملح", "سمن بلدي عماني للتقديم"], method: ["يُسلق اللحم في قدر كبير مع إزالة الزفرة، ثم يُضاف حب الهريس المنقوع.", "يُترك على نار هادئة جداً لمدة 4-5 ساعات مع التحريك.", "بعد النضج، تُزال العظام بعناية ويُضاف الملح.", "يُضرب الهريس بالمضراب الخشبي حتى يتجانس ويصبح مطاطياً.", "يُقدم ساخناً مع السمن البلدي على الوجه."] },
+                side: "سمبوسة لحم + لقيمات", soup: "شوربة الشوفان بالدجاج",
+                suhoor: { title: "قبولي دجاج عماني", ingredients: "دجاجتان، 8 أكواب أرز، بصل، حمص مجروش، بهارات عمانية.", method: "يُسلق الدجاج ويُحمر. يُطبخ الأرز بماء الدجاج. يُحمس البصل والحمص والزبيب كحشوة توضع على وجه الأرز مع الدجاج." }
+            },
+            {
+                day: 2,
+                main: { title: "الثريد باللحم والخضار", ingredients: ["2 كيلو لحم بالعظم", "خبز عماني (رقاق)", "خضار مشكلة (بطاطس، جزر، كوسا)", "بهارات عمانية ولومي يابس", "طماطم وبصل"], method: ["يُشوح البصل ويُضاف اللحم والبهارات والطماطم.", "يُغمر بالماء الحار ويُترك ساعة.", "تُضاف الخضار واللومي والملح وتُترك حتى تنضج ويثخن المرق.", "يُكسر الخبز في صينية عميقة ويُسقى بالمرق اللذيذ وتوزع الخضار واللحم فوقه."] },
+                side: "باكورة خضار هندية + سلطة جرجير", soup: "عصير ليمون بالنعناع الطازج",
+                suhoor: { title: "مجبوس لحم", ingredients: "لحم، أرز، طماطم، بصل، بهارات مجبوس، زعفران وماء ورد.", method: "يُطبخ اللحم مع البهارات والطماطم، ثم يُضاف الأرز في نفس القدر ليتشرب المرق بالكامل، ويُهدر على نار هادئة." }
+            },
+            {
+                day: 3,
+                main: { title: "صالونة سمك عمانية وخبز رخال", ingredients: ["2 كيلو سمك جيذر أو كنعد", "طماطم وبصل وثوم", "بهارات سمك وكركم", "لومي عماني يابس", "كزبرة طازجة"], method: ["يُتبل السمك ويُقلى نصف قلية ليحافظ على تماسكه.", "يُحمس البصل والثوم، وتُضاف الطماطم والبهارات والماء واللومي.", "عند الغليان تُسقط قطع السمك برفق مع الكزبرة.", "يُترك 15 دقيقة ويُقدم مع الخبز العماني (الرخال)."] },
+                side: "فطائر جبن + خبيصة عمانية", soup: "شوربة العدس الأصفر",
+                suhoor: { title: "برياني دجاج", ingredients: "دجاج، أرز مسلوق، روب، بصل مكرمل، نعناع وكزبرة.", method: "يُتبل الدجاج بالروب والبهارات ويُطبخ. تُرص طبقات من الدجاج والأرز والبصل المقلي، ويُكمر القدر ليكتمل النضج على البخار." }
+            },
+            {
+                day: 4,
+                main: { title: "عرسية الدجاج مع الترشة", ingredients: ["2 كيلو دجاج", "كيلو ونصف أرز كسر أو مصري", "هيل وملح", "للترشة: زبيب، ثوم، تمر هندي (صبار)، فلفل حار"], method: ["يُسلق الدجاج مع الهيل، ثم يُفتت بدون عظم.", "يُضاف الأرز لمرق الدجاج ويُطبخ حتى ينهرس.", "يُضرب الأرز والدجاج معاً حتى يصبح القوام كريمياً.", "تُطبخ مكونات الترشة (الزبيب والثوم والصبار) كصلصة حامضة حلوة تُقدم بجانب العرسية."] },
+                side: "كبة مقلية + متبل باذنجان", soup: "فيمتو بالثلج",
+                suhoor: { title: "أرز مندي باللحم", ingredients: "لحم غنم، أرز، بهارات مندي، بصل، فحم للتدخين.", method: "يُتبل اللحم ويوضع على شبك فوق قدر الأرز. يُغطى بالقصدير بإحكام ويدخل الفرن لساعتين. يُبخر بالفحم في النهاية لنكهة الشواء." }
+            },
+            {
+                day: 5,
+                main: { title: "مضروبة الدجاج بالشوفان", ingredients: ["3 دجاجات", "6 أكواب شوفان أو أرز", "طماطم وبصل وثوم", "لومي مطحون وسمن", "بهارات مشكلة"], method: ["يُسلق الدجاج ويُفتت.", "يُحمس البصل والطماطم والبهارات، ويُضاف الدجاج والمرق.", "يُضاف الشوفان بالتدريج ويُترك يُطبخ لساعة مع التقليب.", "تُضرب المضروبة حتى تنعم وتُقدم مع السمن الساخن."] },
+                side: "سبرينج رول خضار + مهلبية", soup: "شوربة الفطر بالكريمة",
+                suhoor: { title: "كبسة دجاج", ingredients: "دجاج، أرز، جزر مبشور، صلصة، لومي أسود، بهارات كبسة.", method: "طبخ الدجاج مع الخضار والبهارات، تحمير الدجاج بالفرن، ثم طبخ الأرز في مرق الكبسة الغني." }
+            },
+            {
+                day: 6,
+                main: { title: "شواء عماني (طريقة الفرن)", ingredients: ["كتف خروف أو لحم بعظم", "تبزيرة الشواء (ثوم، كمون، فلفل أحمر، خل تمر، بهارات)"], method: ["يُشرح اللحم وتُدعك التبزيرة داخل الشقوق.", "يُلف بورق موز (اختياري) ثم بطبقات قصدير محكمة جداً.", "يُشوى في فرن حار لساعات طويلة حتى يذوب اللحم كالمراهم."] },
+                side: "سلطة فتوش + بلح الشام", soup: "لبن عيران بالنعناع",
+                suhoor: { title: "أرز بخاري بالدجاج", ingredients: "دجاج، أرز، جزر أعواد، زبيب، كمون حب.", method: "يُقلى الجزر والزبيب للتزيين. يُطبخ الدجاج مع الكمون والأرز، ويوضع الجزر المقلي على الوجه عند التقديم." }
+            },
+            {
+                day: 7,
+                main: { title: "معكرونة بالبشاميل واللحم", ingredients: ["معكرونة أقلام", "لحم مفروم معصج", "بشاميل (حليب، دقيق، زبدة)", "جبن موزاريلا"], method: ["يُحضر البشاميل ويسلق المعكرونة.", "في صينية، توضع طبقة معكرونة، ثم اللحم المفروم، ثم معكرونة.", "تُغطى بالبشاميل والجبن وتُخبز حتى يحمر الوجه."] },
+                side: "سمبوسة دجاج + حمص بالطحينة", soup: "شوربة حريرة مغربية",
+                suhoor: { title: "مطبق سمك مقلي", ingredients: "سمك كنعد شرائح، أرز، بصل، كزبرة، لومي أسود.", method: "يُقلى السمك. يُحمس البصل والبهارات، يوضع السمك فوقه، ثم يُغطى بالأرز المسلوق نصف سلقة ويُترك يتسكر." }
+            },
+            {
+                day: 8,
+                main: { title: "صالونة دجاج مع أرز أبيض", ingredients: ["دجاج مقطع", "بطاطس وجزر وكوسا", "طماطم وبهارات صالونة", "ثوم وكزبرة"], method: ["يُحمر الدجاج، يُحمس البصل والثوم والطماطم.", "يُعاد الدجاج مع الخضار والماء المغلي.", "تُترك الصالونة تتسبك وتُقدم مع أرز أبيض مفلفل."] },
+                side: "ميني بيتزا + قطايف بالقشطة", soup: "عصير مانجو طازج",
+                suhoor: { title: "زربيان لحم", ingredients: "لحم، أرز، بطاطس صغيرة، زبادي، بصل مقلي.", method: "يُخلط اللحم مع الزبادي والبصل المضروب بالخلاط. يُطبخ حتى ينضج، ثم يوضع فوقه الأرز ويُبخر." }
+            },
+            {
+                day: 9,
+                main: { title: "مقالي لحم (تقلية عمانية)", ingredients: ["لحم مقطع مكعبات صغيرة", "شحم (لية)", "قرفة وهيل وفلفل أسود وخل"], method: ["يُطبخ اللحم في مائه فقط على نار هادئة.", "عندما يجف الماء، يذوب الشحم ويبدأ بقلي اللحم.", "تُضاف البهارات والخل ويُقلب حتى يتقرمش اللحم."] },
+                side: "بطاطس حارة + سلطة ذرة", soup: "شوربة خضار مشكلة",
+                suhoor: { title: "أرز كابلي بالدجاج", ingredients: "دجاج، أرز، قشر وعصير برتقال، ماء كادي.", method: "يُطبخ الدجاج بصلصة البرتقال والكادي، ثم يُغطى بالأرز ويُترك ليتهدر بنكهات مميزة." }
+            },
+            {
+                day: 10,
+                main: { title: "ثريد دجاج بخبز رقاق", ingredients: ["دجاج مقطع", "خضار صالونة", "بهارات", "خبز رقاق"], method: ["نفس طريقة ثريد اللحم، تُحضر الصالونة بالدجاج والخضار، ويُسقى بها الخبز المكسر."] },
+                side: "جيب التاجر (توست محشي) + بسبوسة", soup: "عصير تمر هندي (صبار)",
+                suhoor: { title: "صيادية سمك", ingredients: "سمك فيليه، أرز، بصل محمر غامق جداً، كمون.", method: "يُقلى البصل حتى يغمق لونه، يُطحن ويُغلى بالماء ليعطي لوناً بنياً. يُطبخ السمك والأرز في هذا المرق البني." }
+            },
+            {
+                day: 11,
+                main: { title: "هريس الدجاج", ingredients: ["3 دجاجات كاملة", "1.5 كيلو حب هريس", "ملح وسمن وقرفة"], method: ["يُسلق الدجاج ويُخلى من العظم تماماً.", "يُطبخ اللحم الصافي مع حب الهريس المنقوع لساعات.", "يُضرب بالمضراب حتى ينعم ويُقدم مع السمن والقرفة."] },
+                side: "ورق عنب بالزيت + كنافة بالجبن", soup: "شوربة دجاج بالشعيرية",
+                suhoor: { title: "أرز مبهر مع دجاج مشوي", ingredients: "دجاج متبل، أرز، بهارات صحيحة، كركم.", method: "يُشوى الدجاج بالفرن. يُطبخ الأرز بالمرق والكركم للون أصفر زاهٍ، ويقدم الدجاج فوقه." }
+            },
+            {
+                day: 12,
+                main: { title: "صالونة لحم وبطاطس", ingredients: ["لحم غنم بالعظم", "مكعبات بطاطس كبيرة", "بصل وطماطم", "بهارات صالونة عمانية"], method: ["يُطبخ اللحم في المرق والبهارات حتى يقترب من النضج.", "تُضاف البطاطس وتُترك حتى تلين ويثخن قوام المرق."] },
+                side: "أصابع جبن مقرمشة + تبولة", soup: "عصير برتقال بالجزر",
+                suhoor: { title: "مقلوبة باذنجان بالدجاج", ingredients: "دجاج، أرز، باذنجان وبطاطس مقلية.", method: "تُرص طبقات من الخضار المقلية والدجاج في قدر، يُضاف الأرز والمرق، وتُقلب الصينية بعد النضج." }
+            },
+            {
+                day: 13,
+                main: { title: "عرسية لحم مع الترشة", ingredients: ["لحم غنم", "أرز مصري أو كسر", "ترشة (صلصة الزبيب والصبار)"], method: ["يُسلق اللحم حتى يذوب، يُضاف الأرز ويُطبخ حتى ينهرس.", "يُضرب الخليط قوة حتى يتجانس ويُقدم مع صلصة الترشة الحلوة والحامضة."] },
+                side: "سمبوسة خضار + حلاوة عمانية", soup: "عصير قمر الدين",
+                suhoor: { title: "برياني لحم", ingredients: "لحم، أرز، زبادي، بصل مقلي، نعناع وزعفران.", method: "يُتبل اللحم المسلوق بخلطة الروب، وتُعمل طبقات مع الأرز ويُكمر بالزعفران." }
+            },
+            {
+                day: 14,
+                main: { title: "كفتة لحم بالصلصة (داوود باشا)", ingredients: ["لحم مفروم وبصل وبقدونس", "عصير طماطم طازج"], method: ["تُكور الكفتة وتُقلى لتتماسك.", "تُسقط الكرات في صلصة الطماطم وتُترك تتسبك وتقدم مع أرز بالشعيرية."] },
+                side: "سلطة روسية + أم علي", soup: "شوربة شوفان باللحم",
+                suhoor: { title: "قبولي لحم عماني", ingredients: "لحم، أرز، بصل وزبيب وحمص للحشو.", method: "يُطبخ الأرز بمرق اللحم، ويُزين باللحم المحمر وحشوة البصل المتبلة." }
+            },
+            {
+                day: 15,
+                main: { title: "مضروبة سمك", ingredients: ["سمك فيليه مسلوق ومفتت", "أرز", "طماطم وثوم وكزبرة", "لومي مطحون"], method: ["يُحمس السمك المفتت مع البهارات والطماطم.", "يُضاف الأرز والماء ويُطبخ لفترة طويلة حتى يذوب، ثم يُضرب بالمضراب."] },
+                side: "معجنات زعتر + لقيمات محشية جبن", soup: "عصير رمان طازج",
+                suhoor: { title: "مجبوس دجاج", ingredients: "دجاج، أرز، طماطم، بهارات مجبوس.", method: "وجبة القدر الواحد السريعة، يُسلق الدجاج ويُضاف الأرز في نفس القدر حتى يتشرب النكهات." }
+            },
+            {
+                day: 16,
+                main: { title: "صينية دجاج وبطاطس بالفرن", ingredients: ["دجاج مقطع", "شرائح بطاطس", "تتبيلة (ليمون، زيت زيتون، ثوم، بابريكا)"], method: ["تُرص البطاطس والدجاج المتبل في صينية.", "تُغطى بالقصدير وتُشوى بالفرن، ثم يُحمر الوجه."] },
+                side: "بابا غنوج + كيكة التمر", soup: "لبن بالكمون",
+                suhoor: { title: "صيادية روبيان", ingredients: "روبيان، أرز، بصل محمر غامق، كمون.", method: "يُعمل مرق البصل البني، يُسلق فيه الأرز، ويُدفن الروبيان داخل الأرز في آخر 10 دقائق كي لا يقسى." }
+            },
+            {
+                day: 17,
+                main: { title: "ثريد مأكولات بحرية", ingredients: ["سمك فيليه، حبار، روبيان", "خضار صالونة", "خبز رقاق"], method: ["تُعمل صالونة غنية بصلصة الطماطم والمأكولات البحرية.", "يُسقى خبز الرقاق بالمرق وتوضع الثمار البحرية فوقه."] },
+                side: "فلافل محشية بصل وسماق + سلطة خضراء", soup: "شوربة البروكلي بالكريمة",
+                suhoor: { title: "أرز أبيض مع صالونة لحم", ingredients: "لحم، أرز أبيض، بامية وبطاطس.", method: "صالونة لحم وبامية تُقدم بجانب أرز أبيض سادة." }
+            },
+            {
+                day: 18,
+                main: { title: "شواء الدجاج بالفرن", ingredients: ["دجاج كامل", "تتبيلة الشواء (زبادي، خل، معجون، ثوم)"], method: ["يُتبل الدجاج من الداخل والخارج ويُشوى بالفرن حتى ينضج ويتحمر بشكل مقرمش."] },
+                side: "سمبوسة جبن ونعناع + ماهو (حلوى الحليب)", soup: "عصير بطيخ (جح)",
+                suhoor: { title: "مندي دجاج", ingredients: "دجاج، أرز، زعفران، فحم.", method: "دجاج محمر يوضع فوق الأرز، ويُبخر بقطعة فحم وزيت وتغلق الطنجرة فوراً لنكهة المدخن." }
+            },
+            {
+                day: 19,
+                main: { title: "عرسية دجاج", ingredients: ["دجاج، أرز كسر، هيل", "ترشة عمانية"], method: ["تكرار لذيذ لطبق العرسية المريح للمعدة، يُهرس الدجاج مع الأرز ويُقدم مع الترشة."] },
+                side: "خبز ثوم بالجبن + ليالي لبنان", soup: "شوربة عدس وحامض",
+                suhoor: { title: "كبسة لحم حاشي (أو غنم)", ingredients: "لحم حاشي، أرز، طماطم، لومي أسود، فلفل حار.", method: "يُطبخ اللحم في قدر الضغط حتى يذوب، ثم يُطبخ الأرز بمرق اللحم الغني." }
+            },
+            {
+                day: 20,
+                main: { title: "كباب لحم مشوي", ingredients: ["لحم مفروم بالدهن", "تفل بصل (بدون ماء)", "بقدونس وبهارات"], method: ["يُعجن اللحم ويُشكل على أسياخ.", "يُشوى في الفرن أو على الفحم ويُقدم مع الخبز."] },
+                side: "سلطة زبادي بالخيار + كريم كراميل", soup: "شراب فيمتو بارد",
+                suhoor: { title: "أرز مع عدس (معدس) ودقوس", ingredients: "أرز، عدس أصفر، بصل، كمون.", method: "يُطبخ الأرز والعدس معاً في قدر، ويُقدم مع صلصة الطماطم الحارة (الدقوس)." }
+            },
+            {
+                day: 21,
+                main: { title: "صالونة سمك جيذر", ingredients: ["مكعبات سمك جيذر", "تمر هندي (صبار)", "بهارات صالونة"], method: ["صالونة عمانية غنية بالحموضة من التمر الهندي واللومي، تُطبخ مع قطع سمك التونة (الجيذر)."] },
+                side: "باذنجان مقلي بدبس الرمان + محلبية", soup: "شوربة طماطم بالريحان",
+                suhoor: { title: "برياني روبيان", ingredients: "روبيان، أرز، زبادي، بصل مقلي، كزبرة.", method: "طبقات من الروبيان المتبل والمطبوخ سريعاً مع الأرز والبصل المكرمل." }
+            },
+            {
+                day: 22,
+                main: { title: "هريس لحم", ingredients: ["لحم غنم", "حب هريس", "سمن"], method: ["وجبة الهريس الكلاسيكية تعود للمائدة لفضلها وقيمتها الغذائية العالية في رمضان."] },
+                side: "توست محشي دجاج مقلي + بقلاوة", soup: "عصير جوافة بالحليب",
+                suhoor: { title: "مطبق دجاج", ingredients: "دجاج، أرز، خضار مقلية (زهرة، بطاطس).", method: "طبقات من الأرز والدجاج والخضار المقلية تُتهدر معاً في قدر واحد." }
+            },
+            {
+                day: 23,
+                main: { title: "داوود باشا (كرات اللحم)", ingredients: ["لحم مفروم مكور", "صلصة طماطم وبصل", "دبس رمان"], method: ["كرات لحم مقلية تُغلى في صلصة طماطم غنية بدبس الرمان والبصل الجوانح."] },
+                side: "كروكيت بطاطس بالجبن + سلطة جرجير", soup: "شراب الورد (جلاب) مع صنوبر",
+                suhoor: { title: "أرز مدخن مع دجاج شواية", ingredients: "دجاج، أرز مسلوق، فحم.", method: "أرز أبيض مزين بالزعفران، يوضع عليه الدجاج المشوي ويُبخر بالفحم." }
+            },
+            {
+                day: 24,
+                main: { title: "ثريد دجاج", ingredients: ["دجاج مقطع، خبز رقاق، خضار"], method: ["وجبة خفيفة ومناسبة للعشر الأواخر، مرق دجاج بالخضار يُسقى به الخبز المقرمش."] },
+                side: "بيتزا التوست + قطايف بالجوز", soup: "شوربة ذرة بالدجاج",
+                suhoor: { title: "زربيان دجاج", ingredients: "دجاج، زبادي، أرز، بطاطس، بهارات زربيان.", method: "يُطبخ الدجاج والبطاطس في خلطة الزبادي، ثم يوضع الأرز فوقها للتسكير." }
+            },
+            {
+                day: 25,
+                main: { title: "مقالي دجاج (ناشف عماني)", ingredients: ["قطع دجاج صغيرة", "بطاطس مقلية", "بصل وطماطم وبهارات"], method: ["يُطبخ الدجاج مع البصل والطماطم حتى يجف المرق تماماً وتتسبك الخلطة (ناشف)."] },
+                side: "سلطة معكرونة + خبيصة عمانية", soup: "عصير ليمون بالنعناع",
+                suhoor: { title: "قبولي سمك كنعد", ingredients: "شرائح سمك مقلية، أرز، حشوة بصل وحمص.", method: "يُطبخ الأرز بمرق السمك ويُزين بالسمك المقلي وحشوة البصل العمانية." }
+            },
+            {
+                day: 26,
+                main: { title: "طاجن بامية باللحم", ingredients: ["لحم مسلوق", "بامية", "صلصة طماطم وثوم وكزبرة"], method: ["تُقلى البامية قليلاً، وتُدخل الفرن في طاجن فخار مع اللحم والصلصة والثوم حتى تتسبك."] },
+                side: "سمبوسة هندية بالبطاطس + بسبوسة قشطة", soup: "شوربة لسان عصفور",
+                suhoor: { title: "مجبوس روبيان", ingredients: "روبيان طري، أرز، شبنت، طماطم.", method: "يُحمس الروبيان مع الشبنت، ويُضاف الأرز مباشرة كي لا يقسى الروبيان من طول الطبخ." }
+            },
+            {
+                day: 27,
+                main: { title: "صالونة دجاج عمانية", ingredients: ["دجاج، خضار مشكلة، مرق أحمر"], method: ["الصالونة التقليدية المحببة للجميع، تُقدم في العزائم بجانب الأرز الأبيض أو الخبز."] },
+                side: "رولات مسخن دجاج + مهلبية فستق", soup: "عصير كوكتيل طبقات",
+                suhoor: { title: "أرز كابلي باللحم", ingredients: "لحم، أرز، بشر برتقال، ماء كادي.", method: "أرز فاخر بنكهة البرتقال وماء الكادي والزعفران مع قطع اللحم الطرية." }
+            },
+            {
+                day: 28,
+                main: { title: "عرسية لحم", ingredients: ["لحم، أرز كسر، ترشة"], method: ["وجبة مشبعة ومريحة، تُهرس بقوة وتُقدم ساخنة مع صلصة الترشة والسمن."] },
+                side: "كبة بطاطس باللحم المفروم + عوامة مقرمشة", soup: "عصير قمر الدين",
+                suhoor: { title: "مقلوبة زهرة (قرنبيط)", ingredients: "زهرة مقلية، دجاج، أرز.", method: "طبقات من الزهرة المقلية والدجاج، تُغمر بالأرز وتُقلب ككعكة لذيذة." }
+            },
+            {
+                day: 29,
+                main: { title: "صينية خضار بالفرن (تورلي)", ingredients: ["خضار مشكلة نيئة", "قطع دجاج", "صلصة طماطم"], method: ["تُرص الخضار والدجاج في صينية وتُغمر بالصلصة وتُشوى بالفرن حتى النضج."] },
+                side: "سلطة كول سلو + حلاوة عمانية", soup: "شوربة شوفان سادة",
+                suhoor: { title: "برياني سمك", ingredients: "سمك فيليه، أرز، خلطة برياني.", method: "سمك مقلى يوضع مع خلطة الزبادي والأرز المسلوق ويُكمر بالزعفران." }
+            },
+            {
+                day: 30,
+                main: { title: "مضروبة دجاج (ختام الشهر)", ingredients: ["دجاج، شوفان، خضار مهروسة"], method: ["تُضرب المكونات حتى تتجانس في طبق دافئ ومميز لليلة العيد."] },
+                side: "ورق عنب بالزيت + كيكة زعفران", soup: "لبن عيران",
+                suhoor: { title: "قبولي لحم العيد", ingredients: "لحم، أرز، مكسرات وحشوة وفيرة.", method: "سحور ليلة العيد الفاخر، قبولي غني باللحم المحمر والمكسرات والزبيب." }
+            }
+        ];
+
+        // تهيئة الصفحة وإنشاء بطاقات الجدول
+        document.addEventListener('DOMContentLoaded', () => {
+            const gridContainer = document.getElementById('gridContainer');
+            
+            menuData.forEach(day => {
+                const card = document.createElement('div');
+                card.className = "glass-card rounded-3xl overflow-hidden border border-slate-700 hover:border-amber-500 transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,158,11,0.2)] transform hover:-translate-y-2 cursor-pointer relative group";
+                card.onclick = () => showDetail(day.day);
+                
+                card.innerHTML = `
+                    <div class="absolute top-0 right-0 bg-gradient-to-l from-amber-500 to-amber-400 text-slate-900 font-black px-6 py-2 rounded-bl-3xl z-10 shadow-md">
+                        اليوم ${day.day}
+                    </div>
+                    <div class="p-8 pt-14">
+                        <div class="space-y-4">
+                            <div>
+                                <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider block mb-1">الطبق الرئيسي</span>
+                                <h3 class="text-2xl font-black text-slate-100 group-hover:text-amber-400 transition-colors leading-tight">
+                                    ${day.main.title}
+                                </h3>
+                            </div>
+                            <div class="flex flex-col gap-2 text-sm text-slate-400 border-t border-slate-700/50 pt-4">
+                                <span class="flex items-center gap-2">🍲 ${day.soup}</span>
+                                <span class="flex items-center gap-2">🥟 ${day.side}</span>
+                            </div>
+                            <div class="bg-slate-900/80 p-4 rounded-2xl mt-4 border border-slate-700">
+                                <span class="text-xs text-amber-500 font-bold block mb-1">السحور</span>
+                                <p class="text-sm font-bold text-white">${day.suhoor.title}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 w-full h-1.5 bg-gradient-to-r from-emerald-600 via-amber-500 to-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                `;
+                gridContainer.appendChild(card);
+            });
+        });
+
+        // دالة لعرض تفاصيل اليوم عند الضغط على البطاقة
+        function showDetail(dayNumber) {
+            const data = menuData.find(d => d.day === dayNumber);
+            if (!data) return;
+
+            // تعبئة البيانات في واجهة التفاصيل
+            document.getElementById('detailDayNumber').innerText = `اليوم ${data.day}`;
+            document.getElementById('detailMainTitle').innerText = data.main.title;
+            
+            // المقادير
+            const ingList = document.getElementById('detailIngredients');
+            ingList.innerHTML = '';
+            data.main.ingredients.forEach(ing => {
+                ingList.innerHTML += `<li class="flex items-start gap-3 border-b border-slate-700/50 pb-2"><span class="text-emerald-500 text-lg leading-none">▪</span><span class="pt-1">${ing}</span></li>`;
+            });
+
+            // الطريقة
+            const methodList = document.getElementById('detailMethod');
+            methodList.innerHTML = '';
+            data.main.method.forEach((step, idx) => {
+                methodList.innerHTML += `
+                    <div class="flex gap-4 items-start p-4 bg-slate-900/50 rounded-2xl border border-slate-800">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-full bg-emerald-900/80 text-emerald-400 flex items-center justify-center font-black text-lg border-2 border-emerald-700 shadow-inner">
+                            ${idx + 1}
+                        </div>
+                        <p class="pt-2 text-lg">${step}</p>
+                    </div>`;
+            });
+
+            // الجوانب والسحور
+            document.getElementById('detailSide').innerText = data.side;
+            document.getElementById('detailSoup').innerText = data.soup;
+            document.getElementById('detailSuhoorTitle').innerText = data.suhoor.title;
+            document.getElementById('detailSuhoorIngredients').innerText = data.suhoor.ingredients;
+            document.getElementById('detailSuhoorMethod').innerText = data.suhoor.method;
+
+            // تبديل الشاشات (Animation)
+            const home = document.getElementById('homeView');
+            const detail = document.getElementById('detailView');
+            
+            home.classList.add('opacity-0');
+            setTimeout(() => {
+                home.classList.add('hidden');
+                detail.classList.remove('hidden');
+                setTimeout(() => detail.classList.remove('opacity-0'), 50);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 500);
+        }
+
+        // دالة العودة للرئيسية
+        function goBack() {
+            const home = document.getElementById('homeView');
+            const detail = document.getElementById('detailView');
+            
+            detail.classList.add('opacity-0');
+            setTimeout(() => {
+                detail.classList.add('hidden');
+                home.classList.remove('hidden');
+                setTimeout(() => home.classList.remove('opacity-0'), 50);
+            }, 500);
+        }
+    </script>
+</body>
+</html>
